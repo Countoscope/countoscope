@@ -5,10 +5,11 @@
 # (see the AUTHORS.rst file for the full list of names)
 #
 # Released under MIT Licence
-"""Module for preparing the trajectories."""
+"""Module for counting the particles into the boxes."""
+from box import Box
+from trajectory import Trajectory
 
-
-class Trajectory:
+class Sorting(Box, Trajectory):
     def __init__(self,
                  ):
         pass
