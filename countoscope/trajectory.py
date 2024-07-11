@@ -20,6 +20,7 @@ class Trajectory:
                  topology_file: str = None,
                  system_size: np.array = None,
                  dimension: int = None,
+                 symmetric_system: bool = False,
                  *args,
                  **kwargs
                  ):
@@ -28,6 +29,14 @@ class Trajectory:
         self.topology_file = topology_file
         self.system_size = system_size
         self.dimension = dimension
+        self.symmetric_system = symmetric_system
+        self.run_trajectory()
+
+    def run_trajectory(self):
+        self.import_trajectory()
+        self.read_information_trajectory()
+        self.detect_system_dimension()
+        self.detect_system_size()
 
     def import_trajectory(self):
         """Import trajectory file using Chemfiles"""
@@ -81,3 +90,13 @@ class Trajectory:
         else:
             assert (self.dimension == 2) | (self.dimension == 3), \
                 """ERROR: Unsuported dimension. Must be 2 or 3."""
+            
+    def detect_system_size(self):
+        """From the box size, estimate the system lower and higher coordinate."""
+        system_boundaries = []
+        for system_length in self.system_size:
+            if self.symmetric_system:
+                system_boundaries.append([-system_length/2, system_length/2])
+            else:
+                system_boundaries.append([0, system_length])
+        self.system_boundaries = np.array(system_boundaries)

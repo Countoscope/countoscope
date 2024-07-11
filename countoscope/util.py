@@ -29,3 +29,11 @@ def autocorrelation_function(data):
     sf = np.conj(fra) * fra
     res = np.fft.ifft(sf, axis=0)
     return np.real(res[:len(data)]) / np.array(range(len(data), 0, -1))
+
+def calculate_remaining_axis(dim):
+    """Return a tuple with the 2 axes that are different from dim"""
+    remaining_axis = ()
+    for axis in [0, 1, 2]:
+        if axis != dim:
+            remaining_axis = remaining_axis + (axis,)
+    return remaining_axis
