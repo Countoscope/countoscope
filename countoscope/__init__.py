@@ -6,4 +6,4 @@
 #
 # Released under MIT Licence
 
-from analysis import analysis
+from countoscope import Countoscope
