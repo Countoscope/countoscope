@@ -1,2 +1,8 @@
-
+# python and jupyter-notebook  files:
+**/__pycache__
+**/.ipynb_checkpoints/
 **/*.pyc
+
+# pip install folders
+countoscope.egg-info/
+build/

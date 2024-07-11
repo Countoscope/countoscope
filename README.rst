@@ -14,3 +14,12 @@ Optionally, clone the repository with its submodule using:
 ..  code::
 
   git clone https://github.com/Countoscope/countoscope.git --recurse-submodules
+
+Installation
+------------
+
+From the repository, type:
+
+..  code::
+
+    pip install .
