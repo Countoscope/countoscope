@@ -44,10 +44,12 @@ Note that the repository must have been cloned with its submodules for the tests
 To-do list
 ----------
 
-- allow the user to input his/her own grid
-- allow group selection
-- test if numba helps
-- allow for inputing array
+- allow the user to input his/her own grid with specific box ?
+- allow group selection (for trajectory with different type of particles)
+- test if numba helps making the code faster
+- allow for inputing data in a numpy array
+- allow for inputing data pandas dataframe,
+_ make an extra too for converting automatically data into a regular format (like XYZ)
 
 When the repository is public:
 
