@@ -26,11 +26,11 @@ info_three_sliding_particles = {
     "filename_lammpstrj": git_path+"/datasets/"\
         +"ideal-cases/three-sliding-particles/dump.lammpstrj"}
 
-def apply_countoscope():
+def apply_countoscope(box_size=np.array([10, 10, 10])):
     """Apply countoscope to the three sliding particles system"""
     results = Countoscope(
         trajectory_file = info_three_sliding_particles["filename_lammpstrj"],
-        box_size = np.array([10, 10, 10]),
+        box_size = box_size,
         symmetric_system = False)
     results.run()
     return results
@@ -59,3 +59,24 @@ def test_detect_particle_number():
         """The squared average number of particle is wrong"""
     assert results.correlation_function[0] == info_three_sliding_particles["expected_correlation_value"]
     assert results.delta_n2[0] == info_three_sliding_particles["expected_delta_n2"]
+
+def test_detect_particle_number_different_size():
+    """Make sure cutting the box in different way give consistent particle number."""
+    for factor in [0.25, 0.5, 0.75, 1]:
+        results = apply_countoscope(box_size=np.array([10*factor, 10, 10]))
+        assert np.round(results.mean_of_N,3) \
+            == np.round(factor*info_three_sliding_particles["expected_mean_of_N"], 3)
+        assert np.round(results.mean_of_N,3) \
+            == np.round(factor*info_three_sliding_particles["expected_mean_of_square_of_N"], 3)
+        assert np.round(results.mean_of_N_squared,2) \
+            == np.round((factor*info_three_sliding_particles["expected_mean_of_N"])**2, 2)
+        
+# put a test like that if we decide to keep the automatic division
+#def test_uncompatible_slicing():
+#    """Try to divide the box with an impossible value"""
+#    u, group = import_universe(folder="three-sliding-particles/",
+#        single_frame = False)
+#    cts = COUNTOSCOPE(u, group, [2.8, 10, 10])
+#    cts.run()
+#    print(cts.l0_box[0])
+#    assert cts.l0_box[0] == 3.28
