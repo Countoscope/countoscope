@@ -33,7 +33,7 @@ Then, type:
 Run the tests
 -------------
 
-Go to the [test/](tests/) repository, then type:
+Go to the tests/ repository, then type:
 
 ..  code::
 
