@@ -6,7 +6,7 @@
 #
 # Released under MIT Licence
 """Module for counting the particles into the boxes."""
-from box import Box
+from .box import Box
 import numpy as np
 
 

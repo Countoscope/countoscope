@@ -8,7 +8,6 @@
 """Module for preparing the trajectories."""
 import os
 import numpy as np
-import MDAnalysis as mda
 from chemfiles import Trajectory as chem_traj
 
 

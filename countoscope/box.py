@@ -6,7 +6,7 @@
 #
 # Released under MIT Licence
 """Module for preparing and cutting the box."""
-from trajectory import Trajectory
+from .trajectory import Trajectory
 import numpy as np
 
 

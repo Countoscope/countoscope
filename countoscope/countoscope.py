@@ -6,8 +6,8 @@
 #
 # Released under MIT Licence
 """Module for sorting the particles in boxes."""
-from sorting import Sorting
-from util import autocorrelation_function, calculate_remaining_axis
+from .sorting import Sorting
+from .util import autocorrelation_function, calculate_remaining_axis
 import numpy as np
 
 
