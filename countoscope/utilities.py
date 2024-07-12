@@ -8,7 +8,6 @@
 """Small helper and utilities functions that don't fit anywhere else."""
 import os
 import numpy as np
-from scipy.interpolate import interp1d
 
 def autocorrelation_function(data):
     """Calculate autocorrelation of one arrays using FFT.
