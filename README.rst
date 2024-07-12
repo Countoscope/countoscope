@@ -48,3 +48,4 @@ To-do list
 - allow the user to input his/her own grid
 - allow group selection
 - test if numba helps
+- allow for inputing array
