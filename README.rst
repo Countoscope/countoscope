@@ -5,13 +5,13 @@ This is the repository containing the Python code of the countoscope.
 
 Clone the repository using:
 
-..  code::
+..  code:: bash
 
   git clone https://github.com/Countoscope/countoscope.git
 
 Optionally, clone the repository with its submodule using:
 
-..  code::
+..  code:: bash
 
   git clone https://github.com/Countoscope/countoscope.git --recurse-submodules
 
@@ -20,22 +20,36 @@ Installation
 
 Install all the required Python packages using:
 
-..  code::
+..  code:: bash
 
     pip install -r requirements.txt
 
 Then, type:
 
-..  code::
+..  code:: bash
 
     pip install .
+
+Use
+---
+
+In a Python script or a Jupyter notebook:
+
+..  code:: python
+
+  path_to_data = "/path/data/trajectory.xyz"
+
+  from countoscope import Countoscope
+
+  results = Countoscope(trajectory_file = path_to_data)
+  results.run()
 
 Run the tests
 -------------
 
 Go to the tests/ repository, then type:
 
-..  code::
+..  code:: bash
 
     pytest .
 
