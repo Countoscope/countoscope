@@ -9,9 +9,10 @@
 import os
 import numpy as np
 from chemfiles import Trajectory as chem_traj
+from .tools import Tools
 
 
-class Trajectory:
+class Trajectory(Tools):
     r"""Class providing options for importing the trajectory."""
 
     def __init__(self,
