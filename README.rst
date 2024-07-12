@@ -63,7 +63,7 @@ To-do list
 - test if numba helps making the code faster
 - allow for inputing data in a numpy array
 - allow for inputing data pandas dataframe,
-- :strike:`make an extra tool for converting automatically data into a regular format (like XYZ)` done
+- make an extra tool for converting automatically data into a regular format (like XYZ) --> done, see tools.py
 - re-add the features from countoscope_old, like the automated system-size detection
 
 When the repository is public:
