@@ -18,11 +18,28 @@ Optionally, clone the repository with its submodule using:
 Installation
 ------------
 
-From the repository, type:
+Install all the required Python packages using:
+
+..  code::
+
+    pip install -r requirements.txt
+
+Then, type:
 
 ..  code::
 
     pip install .
+
+Run the tests
+-------------
+
+Go to the test/ repository, then type:
+
+..  code::
+
+    pytest .
+
+Note that the repository must have been cloned with its submodules for the tests to work.
 
 To-do list
 ----------
