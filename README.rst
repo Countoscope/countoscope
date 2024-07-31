@@ -65,6 +65,7 @@ To-do list
 - allow for inputing data pandas dataframe,
 - make an extra tool for converting automatically data into a regular format (like XYZ) --> done, see tools.py
 - re-add the features from countoscope_old, like the automated system-size detection
+- allow for cross correlation between neighbor boxes
 
 When the repository is public:
 
