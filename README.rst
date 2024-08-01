@@ -71,3 +71,4 @@ When the repository is public:
 
 - have the GitHub runners automatically launch the tests
 - integrate the python modules into the public documentation
+- have branch protection
