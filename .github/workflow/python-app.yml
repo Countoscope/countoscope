@@ -1,7 +1,4 @@
-# uncomment the proper section to install the countoscope code and run flake if necessary
-
-name: Python application
-
+name: Test the Countoscope
 on:
   push:
     branches: [ develop ]
