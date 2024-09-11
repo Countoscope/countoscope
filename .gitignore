@@ -6,4 +6,7 @@
 # pip install folders
 countoscope.egg-info/
 build/
+
+# example script outputs
 examples/example_xyz.png
+examples/example_numpy.png
