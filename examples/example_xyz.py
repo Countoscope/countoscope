@@ -11,7 +11,7 @@ python example_xyz.py
 
 # set up the Countoscope
 countoscope = Countoscope(
-    trajectory_file  = 'trajectory2.xyz',
+    trajectory_file  = 'trajectory.xyz',
     box_size         = np.array([0.5, 0.5]),
     system_size      = np.array([10, 10]),
     symmetric_system = False,
