@@ -6,22 +6,20 @@
 #
 # Released under MIT Licence
 """Module for sorting the particles in boxes."""
-from .sorting import Sorting
+from .boxcountingtool import BoxCountingTool
 from .utilities import autocorrelation_function, calculate_remaining_axis
 import numpy as np
 
-
-class Countoscope(Sorting):
+class Countoscope(BoxCountingTool):
     def __init__(self,
                  *args,
                  **kwargs
                  ):
         super().__init__(*args, **kwargs)
 
-    def run(self):
-        self.evaluate_correlation()
+    def count(self):
+        self.run_counting() # from BoxCountingTool
         self.evaluate_mean_particle_number()
-        self.evaluate_deltan2()
 
     def evaluate_correlation(self):
         """Evaluate the correlation function."""
@@ -45,6 +43,7 @@ class Countoscope(Sorting):
                                             axis = remaining_axis)
         self.err_correlation_function = np.std(per_box_correlation_functions,
                                                axis = remaining_axis)/np.sqrt(nb_boxes)
+        return self.correlation_function, self.err_correlation_function
         
 
     def evaluate_mean_particle_number(self):
@@ -81,7 +80,12 @@ class Countoscope(Sorting):
         self.mean_of_N_squared = np.mean(self.per_box_mean_of_N_squared,
                                          axis = remaining_axis)
 
-    def evaluate_deltan2(self):
+    def evaluate_deltaN2(self):
         """Evaluate <deltan2>"""
+        if not hasattr(self, 'correlation_function'):
+            # in case we have not yet computed the correlation function, do it now
+            self.evaluate_correlation()
+
         self.delta_n2 = 2*(self.mean_of_square_of_N-self.mean_of_N_squared) \
             - 2*(self.correlation_function - self.mean_of_N_squared)
+        return self.delta_n2

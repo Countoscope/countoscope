@@ -7,3 +7,4 @@
 # Released under MIT Licence
 
 from .countoscope import *
+from .utilities import convert_homemade_format

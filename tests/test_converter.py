@@ -1,7 +1,7 @@
 import numpy as np
 
 # import countoscope
-from countoscope import Countoscope
+from countoscope import Countoscope, convert_homemade_format
 
 info_trajectory = {
     "filename_xyz": "../datasets/"\
@@ -12,7 +12,7 @@ info_trajectory = {
 
 def apply_converted():
     """Convert home-made TXT file into XYZ"""
-    Countoscope.convert_homemade_format(info_trajectory["filename_txt"],
+    convert_homemade_format(info_trajectory["filename_txt"],
                                         info_trajectory["filename_xyz"])
 
 def test_countoscope(box_size=np.array([10, 10]),
@@ -21,11 +21,11 @@ def test_countoscope(box_size=np.array([10, 10]),
     # Call the converter and generate the xyz file
     apply_converted()
     # Test the generated file
-    results = Countoscope(
+    countoscope = Countoscope(
         trajectory_file = info_trajectory["filename_xyz"],
         box_size = box_size,
         system_size = system_size,
         dimension = 2,
         symmetric_system = False)
-    results.run()
-    assert np.round(results.mean_of_N, 3) == info_trajectory["expected_mean_of_N"]
+    countoscope.count()
+    assert np.round(countoscope.mean_of_N, 3) == info_trajectory["expected_mean_of_N"]

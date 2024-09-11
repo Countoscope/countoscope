@@ -9,11 +9,10 @@
 import os
 import numpy as np
 from chemfiles import Trajectory as chem_traj
-from .tools import Tools
 
 
-class Trajectory(Tools):
-    r"""Class providing options for importing the trajectory."""
+class TrajectoryTool():
+    r"""Class for tools based on trajectories."""
 
     def __init__(self,
                  trajectory_file: str,
@@ -24,15 +23,14 @@ class Trajectory(Tools):
                  *args,
                  **kwargs
                  ):
-        super().__init__(*args, **kwargs)
         self.trajectory_file = trajectory_file
         self.topology_file = topology_file
         self.system_size = system_size
         self.dimension = dimension
         self.symmetric_system = symmetric_system
-        self.run_trajectory()
+        self.prepare_trajectories()
 
-    def run_trajectory(self):
+    def prepare_trajectories(self):
         self.import_trajectory()
         self.read_information_trajectory()
         self.detect_system_dimension()
