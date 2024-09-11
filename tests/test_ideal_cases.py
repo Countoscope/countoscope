@@ -1,11 +1,4 @@
 import numpy as np
-import os
-import git
-
-# detect the location of the Git repository
-current_path = os.getcwd()
-git_repo = git.Repo(current_path, search_parent_directories=True)
-git_path = git_repo.git.rev_parse("--show-toplevel")
 
 # import countoscope
 from countoscope import Countoscope
@@ -21,9 +14,9 @@ info_three_sliding_particles = {
     "expected_mean_of_N_squared": 1.0,
     "expected_correlation_value": 1.0,
     "expected_delta_n2": 0.0,
-    "filename_xyz": git_path+"/datasets/"\
+    "filename_xyz": "../datasets/"\
         +"ideal-cases/three-sliding-particles/dump.xyz",
-    "filename_lammpstrj": git_path+"/datasets/"\
+    "filename_lammpstrj": "../datasets/"\
         +"ideal-cases/three-sliding-particles/dump.lammpstrj"}
 
 def apply_countoscope(box_size=np.array([10, 10, 10])):

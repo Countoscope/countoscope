@@ -1,11 +1,4 @@
 import numpy as np
-import os
-#import git
-
-# detect the location of the Git repository
-#current_path = os.getcwd()
-#git_repo = git.Repo(current_path, search_parent_directories=True)
-#git_path = git_repo.git.rev_parse("--show-toplevel")
 
 # import countoscope
 from countoscope import Countoscope
