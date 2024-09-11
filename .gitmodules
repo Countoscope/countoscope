@@ -1,3 +1,4 @@
 [submodule "datasets"]
 	path = datasets
 	url = git@github.com:Countoscope/datasets.git
+	branch = develop
