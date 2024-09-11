@@ -9,13 +9,15 @@
 import os
 import numpy as np
 from chemfiles import Trajectory as chem_traj
-
+from .numpytrajectory import NumpyTrajectory
 
 class TrajectoryTool():
     r"""Class for tools based on trajectories."""
 
     def __init__(self,
-                 trajectory_file: str,
+                 trajectory_file: str = None,
+                 trajectory_array: np.ndarray = None,
+                 trajectory_labels: list = None,
                  topology_file: str = None,
                  system_size: np.array = None,
                  dimension: int = None,
@@ -23,20 +25,31 @@ class TrajectoryTool():
                  *args,
                  **kwargs
                  ):
-        self.trajectory_file = trajectory_file
-        self.topology_file = topology_file
         self.system_size = system_size
         self.dimension = dimension
         self.symmetric_system = symmetric_system
-        self.prepare_trajectories()
 
-    def prepare_trajectories(self):
-        self.import_trajectory()
-        self.read_information_trajectory()
-        self.detect_system_dimension()
-        self.detect_system_size()
+        if trajectory_file is not None:
+            self.trajectory_file = trajectory_file
+            self.topology_file = topology_file
+            self.import_chemfiles_trajectory()
+            self.read_information_chemfiles_trajectory()
+            self.detect_system_dimension()
 
-    def import_trajectory(self):
+        elif trajectory_array is not None:
+            assert trajectory_labels is not None, 'when using trajectory_array, trajectory_array_column_headers must be supplied'
+            self.import_numpy_trajectory(trajectory_array, trajectory_labels)
+            self.read_information_numpy_trajectory()
+            self.dimension = self.trajectory.dimension
+
+        else:
+            raise Exception('Either trajectory_file or trajectory_array must be supplied')
+        
+        self.detect_system_boundaries()
+
+        assert self.nb_steps > 0, f'found {self.nb_steps} steps'
+
+    def import_chemfiles_trajectory(self):
         """Import trajectory file using Chemfiles"""
         # Make sure that the trajectory file exists.
         assert os.path.exists(self.trajectory_file),  \
@@ -47,7 +60,10 @@ class TrajectoryTool():
         if self.topology_file is not None:
             self.trajectory.set_topology(self.topology_file)
 
-    def read_information_trajectory(self):
+    def import_numpy_trajectory(self, trajectory_array, trajectory_array_column_headers):
+        self.trajectory = NumpyTrajectory(trajectory_array, trajectory_array_column_headers)
+
+    def read_information_chemfiles_trajectory(self):
         """Read basic information from trajectory"""
         self.nb_steps = self.trajectory.nsteps
         # If box_size was not provided, try reading it from trajectory.
@@ -56,6 +72,11 @@ class TrajectoryTool():
         # If box_size is 0, return a warning
         assert np.sum(np.array(self.system_size)) > 0, \
             """Error: No box size in trajectory, provide system_size"""
+
+    def read_information_numpy_trajectory(self):
+        """Read basic information from trajectory"""
+        self.nb_steps    = self.trajectory.nsteps
+        self.system_size = self.trajectory.get_system_size()
         
     def detect_system_dimension(self):
         """Attempt to guess the dimension from the trajectory.
@@ -89,7 +110,7 @@ class TrajectoryTool():
             assert (self.dimension == 2) | (self.dimension == 3), \
                 """ERROR: Unsuported dimension. Must be 2 or 3."""
             
-    def detect_system_size(self):
+    def detect_system_boundaries(self):
         """From the box size, estimate the system lower and higher coordinate."""
         system_boundaries = []
         for system_length in self.system_size:
