@@ -1,3 +1,16 @@
+
+.. 
+  # TO UNCOMMENT WHEN YOU HAVE A DOI
+  .. image:: https://zenodo.org/badge/443812727.svg
+     :target: https://zenodo.org/doi/10.5281/zenodo.13354423
+     :alt: DOI
+
+.. image:: https://img.shields.io/badge/License-MIT-blue.svg
+   :target: https://opensource.org/licenses/MIT
+
+.. image:: https://github.com/Countoscope/countoscope/actions/workflows/python-app.yml/badge.svg
+   :target: https://github.com/Countoscope/countoscope/actions/workflows/python-app.yml
+
 Py-Countoscope
 ##############
 
