@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        submodules: true  # Initialize and update submodules
     - name: Set up Python 3.10.7
       uses: actions/setup-python@v2
       with:
