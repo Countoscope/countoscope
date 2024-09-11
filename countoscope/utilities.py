@@ -36,3 +36,32 @@ def calculate_remaining_axis(dim):
         if axis != dim:
             remaining_axis = remaining_axis + (axis,)
     return remaining_axis
+
+def convert_homemade_format(input_file, output_file):
+    """Convert homemade format into xyz format compatible with Chemfile.
+    todo: allow other particle type
+    """
+    # read input file
+    file = open(input_file, "r")
+    array = np.loadtxt(file)
+    if np.shape(array)[1] == 3 or np.shape(array)[1] == 4: # format is x y t or x y t id
+        type = "2D"
+        ids_frames = array[:,2]
+        coordinates = array[:,0:2]
+    else:
+        print("unexpected number of columns")
+    # write output file
+    f = open(output_file, "w")
+    for id_frame in np.unique(ids_frames):
+        frame_coordinate = coordinates[ids_frames==id_frame]
+        atom_per_frame = np.shape(frame_coordinate)[0]
+        f.write("{}\n".format(atom_per_frame))
+        f.write("Atoms. Timestep: {}\n".format(np.int32(id_frame)))
+        for coordinate in frame_coordinate:
+            if type == "2D":
+                x, y = coordinate
+                f.write("1 {} {} 0\n".format(x, y))
+            elif type == "3D":
+                x, y, z = coordinate
+                f.write("1 {} {} {}\n".format(x, y, z))
+    f.close()
