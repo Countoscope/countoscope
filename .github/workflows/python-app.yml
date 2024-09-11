@@ -1,4 +1,4 @@
-name: Test the Countoscope
+name: Countoscope Unit Tests
 on:
   # Run the workflow on pushes to the 'develop' branch and pull requests targeting 'develop'
   push:
